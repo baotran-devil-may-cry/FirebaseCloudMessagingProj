@@ -14,4 +14,17 @@ final class Env {
   static final String androidProjectId = _Env.androidProjectId;
   @EnviedField(varName: 'ANDROID_STORAGE_BUCKET', obfuscate: true)
   static final String androidStorageBucket = _Env.androidStorageBucket;
+
+  @EnviedField(varName: 'IOS_API_KEY', obfuscate: true)
+  static final String iOSApiKey = _Env.iOSApiKey;
+  @EnviedField(varName: 'IOS_APP_ID', obfuscate: true)
+  static final String iOSAppId = _Env.iOSAppId;
+  @EnviedField(varName: 'IOS_MESSAGING_SENDER_ID', obfuscate: true)
+  static final String iOSMessagingSenderId = _Env.iOSMessagingSenderId;
+  @EnviedField(varName: 'IOS_PROJECT_ID', obfuscate: true)
+  static final String iOSProjectId = _Env.iOSProjectId;
+  @EnviedField(varName: 'IOS_STORAGE_BUCKET', obfuscate: true)
+  static final String iOSStorageBucket = _Env.iOSStorageBucket;
+  @EnviedField(varName: 'IOS_BUNDLE_ID', obfuscate: true)
+  static final String iOSBundleId = _Env.iOSBundleId;
 }

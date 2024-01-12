@@ -4,6 +4,7 @@ import 'package:firebase_cloud_messaging_proj/env.dart';
 import 'package:firebase_core/firebase_core.dart' show FirebaseOptions;
 import 'package:flutter/foundation.dart'
     show defaultTargetPlatform, kIsWeb, TargetPlatform;
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 /// Default [FirebaseOptions] for use with your Firebase apps.
 ///
@@ -54,7 +55,7 @@ class DefaultFirebaseOptions {
     measurementId: 'G-24RVR1VGYN',
   );
 
-  static FirebaseOptions android = FirebaseOptions(
+  static final FirebaseOptions android = FirebaseOptions(
     apiKey: Env.androidApiKey,
     appId: Env.androidAppId,
     messagingSenderId: Env.androidMessagingSenderId,
@@ -62,13 +63,14 @@ class DefaultFirebaseOptions {
     storageBucket: Env.androidStorageBucket,
   );
 
-  static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyABWuSAaajzRRk3ZWcLCfgoavq57ZfAyVc',
-    appId: '1:139668531432:ios:7591b4a614765574d0815d',
-    messagingSenderId: '139668531432',
-    projectId: 'fir-cloudmessagingproj-bda6c',
-    storageBucket: 'fir-cloudmessagingproj-bda6c.appspot.com',
-    iosBundleId: 'com.example.firebaseCloudMessagingProj',
+  static final FirebaseOptions ios = FirebaseOptions(
+    apiKey: dotenv.env['IOS_API_KEY'] ?? Env.iOSApiKey,
+    appId: dotenv.env['IOS_APP_ID'] ?? Env.iOSAppId,
+    messagingSenderId:
+        dotenv.env['IOS_MESSAGING_SENDER_ID'] ?? Env.iOSMessagingSenderId,
+    projectId: dotenv.env['IOS_PROJECT_ID'] ?? Env.iOSProjectId,
+    storageBucket: dotenv.env['IOS_STORAGE_BUCKET'] ?? Env.iOSStorageBucket,
+    iosBundleId: dotenv.env['IOS_BUNDLE_ID'] ?? Env.iOSBundleId,
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
