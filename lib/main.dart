@@ -1,9 +1,10 @@
 import 'dart:developer';
-
+import 'package:firebase_cloud_messaging_proj/env.dart';
 import 'package:firebase_cloud_messaging_proj/firebase_options.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 @pragma('vm:entry-point')
 Future<void> _messageHandler(RemoteMessage message) async {
@@ -25,8 +26,13 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    var title = dotenv.env['ANDROID_APP_NAME'] ?? '';
+    if (title.isEmpty) {
+      title = Env.androidAppName;
+    }
+
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: title,
       theme: ThemeData(
         // This is the theme of your application.
         //
