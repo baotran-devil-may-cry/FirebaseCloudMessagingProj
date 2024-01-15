@@ -17,12 +17,10 @@ jobs:
           distribution: 'temurin'
           java-version: '21'
       - name: Make envfile
-        uses: SpicyPizza/create-envfile@v1.0
-        with:
-          envkey_ANDROID_APP_NAME: ${{ secrets.ANDROID_APP_NAME }}
-          file_name: .env
-          fail_on_empty: false
-          sort_keys: false
+        run: |
+          cat > assets/.env << EOF
+          ANDROID_APP_NAME=${{ secrets.ANDROID_APP_NAME }}
+          EOF
       - uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
@@ -48,12 +46,10 @@ jobs:
           distribution: 'temurin'
           java-version: '21'
       - name: Make envfile
-        uses: SpicyPizza/create-envfile@v1.0
-        with:
-          envkey_ANDROID_APP_NAME: ${{ secrets.ANDROID_APP_NAME }}
-          file_name: .env
-          fail_on_empty: false
-          sort_keys: false
+        run: |
+          cat > assets/.env << EOF
+          ANDROID_APP_NAME=${{ secrets.ANDROID_APP_NAME }}
+          EOF
       - uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
