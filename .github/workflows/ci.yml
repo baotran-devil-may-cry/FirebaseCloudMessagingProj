@@ -6,7 +6,7 @@ on:
 jobs:
   deployDev:
     name: 'Deploy to dev environment'
-    if: github.event.ref == 'ref/heads/dev'
+    if: github.event.ref == 'refs/heads/dev'
     runs-on: ubuntu-latest
     environment:
       name: dev
