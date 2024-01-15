@@ -13,6 +13,7 @@ Future<void> _messageHandler(RemoteMessage message) async {
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await dotenv.load(fileName: '.env');
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
@@ -32,7 +33,6 @@ class MyApp extends StatelessWidget {
     }
 
     return MaterialApp(
-      title: title,
       theme: ThemeData(
         // This is the theme of your application.
         //
@@ -52,7 +52,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: MyHomePage(title: title,),
     );
   }
 }
