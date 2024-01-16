@@ -10,4 +10,4 @@ runs:
         touch .third_party_configs
         echo $ANDROID_APP_NAME >> .third_party_configs
         cat .third_party_configs
-        flutter pub run build_runner build -d
+        dart run build_runner build --delete-conflicting-outputs
