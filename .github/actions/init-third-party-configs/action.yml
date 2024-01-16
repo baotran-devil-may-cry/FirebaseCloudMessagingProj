@@ -1,0 +1,14 @@
+name: 'Initialize third party config'
+description: 'Fetch third party configs then generate accessor classes'
+
+runs:
+  using: 'composite'
+  steps:
+    - name: 'Initialize third party configs'
+      shell: sh
+      run: |
+        rm .third_party_configs || true
+        touch .third_party_configs
+        echo $ANDROID_APP_NAME >> .third_party_configs
+        cat .third_party_configs
+        flutter pub run build_runner build -d

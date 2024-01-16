@@ -2,7 +2,7 @@ import 'package:envied/envied.dart';
 
 part 'env.g.dart';
 
-@Envied(path: '.env')
+@Envied(path: '.third_party_configs')
 final class Env {
   @EnviedField(varName: 'ANDROID_API_KEY', obfuscate: true)
   static final String androidApiKey = _Env.androidApiKey;
