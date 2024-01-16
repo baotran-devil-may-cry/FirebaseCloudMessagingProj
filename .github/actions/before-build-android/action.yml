@@ -1,0 +1,10 @@
+name: 'Before build Android'
+description: 'Bootstrap Android building process'
+runs:
+  using: "composite"
+  steps:
+    - name: "Prepare build environment"
+      shell: sh
+      run: |
+        echo "flutter.minSdkVersion=21" >> "android/app/local.properties"
+        echo "flutter.targetSdkVersion=33" >> "android/app/local.properties"
