@@ -9,4 +9,4 @@ runs:
       run: |
         touch ./android/local.properties
         echo "flutter.minSdkVersion=21" > ./android/local.properties
-        echo "flutter.targetSdkVersion=33" > ./android/local.properties
+        echo "flutter.targetSdkVersion=33" >> ./android/local.properties
