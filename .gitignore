@@ -44,4 +44,4 @@ app.*.map.json
 /android/app/release
 
 # exclude all .env files from source control
-*.env
+*.third_party_configs
