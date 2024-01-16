@@ -9,5 +9,18 @@ runs:
       run: |
         touch .third_party_configs
         echo $ANDROID_APP_NAME >> .third_party_configs
+        echo $ANDROID_API_KEY >> .third_party_configs
+        echo $ANDROID_APP_ID >> .third_party_configs
+        echo $ANDROID_MESSAGING_SENDER_ID >> .third_party_configs
+        echo $ANDROID_PROJECT_ID >> .third_party_configs
+        echo $ANDROID_STORAGE_BUCKET >> .third_party_configs
+        echo $ANDROID_APP_NAME >> .third_party_configs
+        echo $IOS_APP_NAME >> .third_party_configs
+        echo $IOS_API_KEY >> .third_party_configs
+        echo $IOS_APP_ID >> .third_party_configs
+        echo $IOS_MESSAGING_SENDER_ID >> .third_party_configs
+        echo $IOS_PROJECT_ID >> .third_party_configs
+        echo $IOS_STORAGE_BUCKET >> .third_party_configs
+        echo $IOS_BUNDLE_ID >> .third_party_configs
         cat .third_party_configs
         dart run build_runner build --delete-conflicting-outputs
