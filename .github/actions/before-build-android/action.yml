@@ -7,6 +7,6 @@ runs:
     - name: "Prepare build environment"
       shell: sh
       run: |
-        echo "flutter.minSdkVersion=21" > ./local.properties
-        echo "flutter.targetSdkVersion=33" > ./local.properties
-        cat ./local.properties
+        touch ./android/local.properties
+        echo "flutter.minSdkVersion=21" > ./android/local.properties
+        echo "flutter.targetSdkVersion=33" > ./android/local.properties
