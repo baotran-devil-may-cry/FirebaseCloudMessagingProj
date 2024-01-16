@@ -1,5 +1,5 @@
 import 'dart:developer';
-import 'package:firebase_cloud_messaging_proj/env.dart';
+import 'package:firebase_cloud_messaging_proj/third_party_configs/third_party_configs.dart';
 import 'package:firebase_cloud_messaging_proj/firebase_options.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';

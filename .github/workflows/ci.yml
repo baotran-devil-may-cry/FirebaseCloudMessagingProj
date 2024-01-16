@@ -45,11 +45,8 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: '21'
-      - name: Make envfile
-        run: |
-          cat > assets/.env << EOF
-          ANDROID_APP_NAME=${{ secrets.ANDROID_APP_NAME }}
-          EOF
+      - name: "Initialize third party config"
+        uses: ./.github/actions/init-third-party-configs
       - uses: subosito/flutter-action@v2
         with:
           channel: 'stable'

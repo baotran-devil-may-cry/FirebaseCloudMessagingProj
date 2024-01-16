@@ -7,7 +7,7 @@ runs:
     - name: 'Initialize third party configs'
       shell: sh
       run: |
-        rm .third_party_configs || true
+        cd ..
         touch .third_party_configs
         echo $ANDROID_APP_NAME >> .third_party_configs
         cat .third_party_configs

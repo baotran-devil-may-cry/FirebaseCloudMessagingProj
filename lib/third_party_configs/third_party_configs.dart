@@ -1,6 +1,6 @@
 import 'package:envied/envied.dart';
 
-part 'env.g.dart';
+part 'third_party_configs.g.dart';
 
 @Envied(path: '.third_party_configs')
 final class Env {

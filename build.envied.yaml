@@ -1,0 +1,7 @@
+targets:
+  $default:
+    sources:
+      - "lib/third_party_configs/third_party_configs.dart"
+    builders:
+      envied_generator|envied:
+        enabled: True

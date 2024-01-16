@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'env.dart';
+part of 'third_party_configs.dart';
 
 // **************************************************************************
 // EnviedGenerator
