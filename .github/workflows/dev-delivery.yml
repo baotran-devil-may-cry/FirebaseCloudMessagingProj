@@ -56,10 +56,11 @@ jobs:
     needs: [set-up-android-sdk]
     runs-on: [self-hosted, macOS]
     steps:
-      - uses: flutter-actions/setup-flutter@v2
+      - uses: subosito/flutter-action@v2
         with:
+          flutter-version: '3.10.4'
           channel: stable
-          version: 3.10.4
+      - run: flutter --version
 
   set-up-third-party-configs:
     name: "Set up third-party configs"
