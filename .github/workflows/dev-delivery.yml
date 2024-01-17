@@ -35,13 +35,13 @@ jobs:
       - uses: ./.github/actions/before-build-android
 
   set-up-java:
-    name: "Set up JDK 17"
+    name: "Set up JDK 11"
     needs: [checkout, bootstrap-build]
     runs-on: [self-hosted, macOS]
     steps:
       - uses: actions/setup-java@v3
         with:
-          java-version: '17'
+          java-version: '11'
           distribution: 'temurin'
 
   set-up-android-sdk:
