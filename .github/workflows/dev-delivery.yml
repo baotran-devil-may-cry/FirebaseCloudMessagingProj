@@ -23,21 +23,21 @@ env:
 jobs:
   checkout:
     name: "Checkout repository"
-    runs-on: self-hosted
+    runs-on: [self-hosted, macOS]
     steps:
       - uses: actions/checkout@v4
 
   bootstrap-build:
     name: "Bootstrap build"
     needs: [checkout]
-    runs-on: baotran-runner
+    runs-on: [self-hosted, macOS]
     steps:
       - uses: ./.github/actions/before-build-android
 
   set-up-java:
     name: "Set up JDK 17"
     needs: [checkout, bootstrap-build]
-    runs-on: self-hosted
+    runs-on: [self-hosted, macOS]
     steps:
       - uses: actions/setup-java@v3
         with:
@@ -47,14 +47,14 @@ jobs:
   set-up-android-sdk:
     name: "Set up Android SDK"
     needs: [set-up-java]
-    runs-on: self-hosted
+    runs-on: [self-hosted, macOS]
     steps:
       - uses: android-actions/setup-android@v3
 
   set-up-flutter-sdk:
     name: "Set up Flutter SDK"
     needs: [set-up-android-sdk]
-    runs-on: self-hosted
+    runs-on: [self-hosted, macOS]
     steps:
       - uses: flutter-actions/setup-flutter@v2
         with:
@@ -64,14 +64,16 @@ jobs:
   set-up-third-party-configs:
     name: "Set up third-party configs"
     needs: [set-up-flutter-sdk]
-    runs-on: self-hosted
+    runs-on: [self-hosted, macOS]
+    environment:
+      name: env
     steps:
       - uses: ./.github/actions/init-third-party-configs
 
   build-android:
     name: "Build Android APK"
     needs: [set-up-third-party-configs]
-    runs-on: self-hosted
+    runs-on: [self-hosted, macOS]
     steps:
       - run: flutter clean
       - run: flutter pub get
@@ -80,7 +82,7 @@ jobs:
   upload-artifact:
     name: "Upload artifact Android"
     needs: [build-android]
-    runs-on: self-hosted
+    runs-on: [self-hosted, macOS]
     steps:
       - uses: actions/upload-artifact@v4
         with:
