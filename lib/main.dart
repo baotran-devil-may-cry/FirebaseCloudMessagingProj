@@ -24,6 +24,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Get local or from Github Secrets
     final title = Env.androidAppName;
 
     return MaterialApp(
