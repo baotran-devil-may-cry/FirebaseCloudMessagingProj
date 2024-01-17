@@ -21,23 +21,33 @@ env:
   IOS_BUNDLE_ID: ${{ secrets.IOS_BUNDLE_ID }}
 
 jobs:
+  get-runner:
+    name: "Get a runner to use for this workflow"
+    if: ${{ always() }}
+    runs-on: ubuntu-latest
+    outputs:
+     RUNNER: ${{ runner.name }}
+    steps:
+      - run: echo "selected runner = ${{ runner.name }}"
+
   checkout:
     name: "Checkout repository"
-    runs-on: ubuntu-latest
+    runs-on: ${{needs.get-runner.outputs.RUNNER}}
+    needs: [get-runner]
     steps:
       - uses: actions/checkout@v4
 
   bootstrap-build:
     name: "Bootstrap build"
-    needs: checkout
-    runs-on: ubuntu-latest
+    needs: [get-runner, checkout]
+    runs-on: ${{needs.get-runner.outputs.RUNNER}}
     steps:
       - uses: ./.github/actions/before-build-android
 
   set-up-java:
     name: "Set up JDK 17"
-    needs: [checkout, bootstrap-build]
-    runs-on: ubuntu-latest
+    needs: [get-runner, checkout, bootstrap-build]
+    runs-on: ${{needs.get-runner.outputs.RUNNER}}
     steps:
       - uses: actions/setup-java@v3
         with:
@@ -46,15 +56,15 @@ jobs:
 
   set-up-android-sdk:
     name: "Set up Android SDK"
-    needs: set-up-java
-    runs-on: ubuntu-latest
+    needs: [get-runner, set-up-java]
+    runs-on: ${{needs.get-runner.outputs.RUNNER}}
     steps:
       - uses: android-actions/setup-android@v3
 
   set-up-flutter-sdk:
     name: "Set up Flutter SDK"
-    needs: set-up-android-sdk
-    runs-on: ubuntu-latest
+    needs: [get-runner, set-up-android-sdk]
+    runs-on: ${{needs.get-runner.outputs.RUNNER}}
     steps:
       - uses: flutter-actions/setup-flutter@v2
         with:
@@ -63,15 +73,15 @@ jobs:
 
   set-up-third-party-configs:
     name: "Set up third-party configs"
-    needs: set-up-flutter-sdk
-    runs-on: ubuntu-latest
+    needs: [get-runner, set-up-flutter-sdk]
+    runs-on: ${{needs.get-runner.outputs.RUNNER}}
     steps:
       - uses: ./.github/actions/init-third-party-configs
 
   build-android:
     name: "Build Android APK"
-    needs: set-up-third-party-configs
-    runs-on: ubuntu-latest
+    needs: [get-runner, set-up-third-party-configs]
+    runs-on: ${{needs.get-runner.outputs.RUNNER}}
     steps:
       - run: flutter clean
       - run: flutter pub get
@@ -79,8 +89,8 @@ jobs:
 
   upload-artifact:
     name: "Upload artifact Android"
-    needs: build-android
-    runs-on: ubuntu-latest
+    needs: [get-runner, build-android]
+    runs-on: ${{needs.get-runner.outputs.RUNNER}}
     steps:
       - uses: actions/upload-artifact@v4
         with:
