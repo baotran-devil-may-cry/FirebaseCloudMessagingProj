@@ -67,7 +67,7 @@ jobs:
     needs: [set-up-flutter-sdk]
     runs-on: [self-hosted, macOS]
     environment:
-      name: env
+      name: dev
     steps:
       - uses: ./.github/actions/init-third-party-configs
 
