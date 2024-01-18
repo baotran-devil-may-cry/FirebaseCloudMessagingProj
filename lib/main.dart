@@ -7,7 +7,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 
 @pragma('vm:entry-point')
 Future<void> _messageHandler(RemoteMessage message) async {
-  log('Background message ${message.notification?.body}');
+  log('Firebase background message ${message.notification?.body}');
 }
 
 Future<void> main() async {
