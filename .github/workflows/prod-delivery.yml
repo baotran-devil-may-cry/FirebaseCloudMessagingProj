@@ -1,5 +1,5 @@
-name: deployments
-run-name: dev deployment
+name: prod-delivery
+run-name: Prod Delivery
 on:
   push:
     branches:
@@ -21,33 +21,70 @@ env:
   IOS_BUNDLE_ID: ${{ secrets.IOS_BUNDLE_ID }}
 
 jobs:
-  deployProd:
-    name: 'Deploy to production environment'
-    if: github.event.ref == 'refs/heads/delivery'
-    runs-on: ubuntu-latest
+  checkout:
+    name: "Checkout repository"
+    runs-on: [self-hosted, macOS]
+    steps:
+      - uses: actions/checkout@v4
+
+  bootstrap-build:
+    name: "Bootstrap build"
+    needs: [checkout]
+    runs-on: [self-hosted, macOS]
+    steps:
+      - uses: ./.github/actions/before-build-android
+
+  set-up-java:
+    name: "Set up JDK 21"
+    needs: [checkout, bootstrap-build]
+    runs-on: [self-hosted, macOS]
+    steps:
+      - uses: actions/setup-java@v3
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+
+  set-up-android-sdk:
+    name: "Set up Android SDK"
+    needs: [set-up-java]
+    runs-on: [self-hosted, macOS]
+    steps:
+      - uses: android-actions/setup-android@v3
+
+  set-up-flutter-sdk:
+    name: "Set up Flutter SDK"
+    needs: [set-up-android-sdk]
+    runs-on: [self-hosted, macOS]
+    steps:
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.10.4'
+          channel: stable
+      - run: flutter --version
+
+  set-up-third-party-configs:
+    name: "Set up third-party configs"
+    needs: [set-up-flutter-sdk]
+    runs-on: [self-hosted, macOS]
     environment:
       name: prod
     steps:
-      - uses: actions/checkout@v4
-      - name: "Bootstrap build"
-        uses: ./.github/actions/before-build-android
-      - name: Set up JDK 17
-        uses: actions/setup-java@v3
-        with:
-          java-version: '17'
-          distribution: 'temurin'
-      - name: Setup Android SDK
-        uses: android-actions/setup-android@v3
-      - name: Setup Flutter SDK
-        uses: flutter-actions/setup-flutter@v2
-        with:
-          channel: stable
-          version: 3.10.4
-      - name: "Initialize third party config"
-        uses: ./.github/actions/init-third-party-configs
+      - uses: ./.github/actions/init-third-party-configs
+
+  build-android:
+    name: "Build Android APK"
+    needs: [set-up-third-party-configs]
+    runs-on: [self-hosted, macOS]
+    steps:
       - run: flutter clean
       - run: flutter pub get
       - run: flutter build apk
+
+  upload-artifact:
+    name: "Upload artifact Android"
+    needs: [build-android]
+    runs-on: [self-hosted, macOS]
+    steps:
       - uses: actions/upload-artifact@v4
         with:
           name: apk-release
