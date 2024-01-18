@@ -15,7 +15,6 @@ runs:
         echo $ANDROID_MESSAGING_SENDER_ID >> .third_party_configs
         echo $ANDROID_PROJECT_ID >> .third_party_configs
         echo $ANDROID_STORAGE_BUCKET >> .third_party_configs
-        echo $ANDROID_APP_NAME >> .third_party_configs
         echo $IOS_APP_NAME >> .third_party_configs
         echo $IOS_API_KEY >> .third_party_configs
         echo $IOS_APP_ID >> .third_party_configs
