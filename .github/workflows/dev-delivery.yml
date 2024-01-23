@@ -78,7 +78,7 @@ jobs:
     steps:
       - run: flutter clean
       - run: flutter pub get
-      - run: flutter build apk
+      - run: flutter build apk --debug
 
   upload-artifact:
     name: "Upload artifact Android"
